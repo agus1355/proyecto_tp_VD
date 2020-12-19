@@ -48,5 +48,5 @@ app.post('/prueba_POST', [
 })
 
 app.listen(port, () => {
-  console.log("test servidor");
+  console.log("Servidor iniciado.");
 })
