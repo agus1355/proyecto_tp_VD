@@ -8,18 +8,18 @@ const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+//get desde navegador para acceder al formulario
 app.get('/',(req,res)=>{
     res.sendFile(__dirname + '/crearPersonas.html')
 })
 
-//TODO: notificar error cuando se manden más atributos de los permitidos
+//POST enviado desde el navegador con los datos ingresados en el body
 app.post('/prueba_POST', [
     body('nombre').isString(),
     body('apellido').isString(),
     body('dni').isNumeric().isLength({max: 10})
-
 ] , (req, res) => {
-     const errTotal = validationResult(req)
+    const errTotal = validationResult(req)
     if(!errTotal.isEmpty() || Object.keys(req.body).length > 3)
     {
         return res.status(400).json({errors: errTotal.array() })
