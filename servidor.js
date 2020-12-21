@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator');
 const request = require('request-promise');
+const fArray = require('./utiles');
+const { pasarAvector } = require('./utiles');
 const port = 3000
 const app = express()
 
@@ -9,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname + '/crearPersonas.html') 
+    res.sendFile(__dirname + '/crearPersonas.html')
 })
 
 //TODO: notificar error cuando se manden más atributos de los permitidos
@@ -17,15 +19,18 @@ app.post('/prueba_POST', [
     check('nombre').isString(),
     check('apellido').isString(),
     check('dni').isNumeric().isLength({max: 10})
+
 ] , (req, res) => {
      const errTotal = validationResult(req)
-    if(!errTotal.isEmpty())
+    if(!errTotal.isEmpty() || Object.keys(req.body).length > 3)
     {
         return res.status(400).json({errors: errTotal.array() })
     }
+
     req.body.dni = parseInt(req.body.dni);
     console.log(req.body);
 
+    //POST a servidor con la base de datos
      var options = {
         'method': 'POST',
         'url': 'https://reclutamiento-14cf7.firebaseio.com/personas.json',
