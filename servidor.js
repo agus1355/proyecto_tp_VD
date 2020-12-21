@@ -13,7 +13,7 @@ app.get('/',(req,res)=>{
     res.sendFile(__dirname + '/crearPersonas.html')
 })
 
-//POST enviado desde el navegador con los datos ingresados en el body
+//POST enviado desde el navegador con los datos ingresados
 app.post('/prueba_POST', [
     body('nombre').isString(),
     body('apellido').isString(),
@@ -46,7 +46,7 @@ app.post('/prueba_POST', [
             }
         console.log(response.body)
       })
-      
+
       res.sendStatus(201);
 })
 
