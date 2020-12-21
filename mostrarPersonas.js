@@ -3,7 +3,7 @@ const rp = require("request-promise")
 const request = require('request');
 
 
-let options = {
+var options = {
     method: 'GET',
     url : "https://reclutamiento-14cf7.firebaseio.com/personas.json",
     json: true
