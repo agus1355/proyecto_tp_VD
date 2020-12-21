@@ -1,9 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { check, validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const request = require('request-promise');
-const fArray = require('./utiles');
-const { pasarAvector } = require('./utiles');
 const port = 3000
 const app = express()
 
@@ -16,9 +14,9 @@ app.get('/',(req,res)=>{
 
 //TODO: notificar error cuando se manden más atributos de los permitidos
 app.post('/prueba_POST', [
-    check('nombre').isString(),
-    check('apellido').isString(),
-    check('dni').isNumeric().isLength({max: 10})
+    body('nombre').isString(),
+    body('apellido').isString(),
+    body('dni').isNumeric().isLength({max: 10})
 
 ] , (req, res) => {
      const errTotal = validationResult(req)
