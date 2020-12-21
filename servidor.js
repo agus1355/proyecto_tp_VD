@@ -46,7 +46,7 @@ app.post('/prueba_POST', [
             }
         console.log(response.body)
       })
-      //falta mandar la respuesta del post a la pagina
+      
       res.sendStatus(201);
 })
 
